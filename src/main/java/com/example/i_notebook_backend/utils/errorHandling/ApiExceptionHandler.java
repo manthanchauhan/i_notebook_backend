@@ -60,4 +60,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         return errorMessage == null ? "Something went wrong" : errorMessage;
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> handleAllUncaughtException(RuntimeException exception, WebRequest request){
+        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        return handleExceptionInternal(exception, apiError, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
 }

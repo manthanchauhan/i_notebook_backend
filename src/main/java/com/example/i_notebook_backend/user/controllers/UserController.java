@@ -25,6 +25,7 @@ public class UserController {
     @PostMapping("")
     public Map<String, String> createUser(@Valid @RequestBody CreateUserRequestDto requestDto){
         this.userIntermediateService.createUser(requestDto);
+        System.out.println(1/0);
         return Collections.singletonMap("message", "User created");
     }
 }
