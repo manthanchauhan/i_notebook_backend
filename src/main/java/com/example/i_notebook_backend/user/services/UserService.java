@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     // https://stackoverflow.com/a/39892204
@@ -26,5 +28,11 @@ public class UserService {
                 requestDto.getPassword()
         );
         userRepository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserByEmail(String email){
+        Optional<User> optionalUser = userRepository.findOne(UserRepository.hasEmail(email));
+        return optionalUser.orElse(null);
     }
 }
