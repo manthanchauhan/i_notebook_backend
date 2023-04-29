@@ -1,4 +1,4 @@
-package com.example.i_notebook_backend.utils;
+package com.example.i_notebook_backend.utils.errorHandling;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -8,7 +8,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.List;
@@ -38,6 +40,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage());
         return new ResponseEntity<>(
                 apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+    @ExceptionHandler(value = { ResponseStatusException.class})
+    protected ResponseEntity<Object> handleResponseStatusException(ResponseStatusException ex, WebRequest request) {
+        ApiError apiError = new ApiError((HttpStatus) ex.getStatusCode(), ex.getReason());
+
+        return handleExceptionInternal(ex, apiError, new HttpHeaders(), ex.getStatusCode(), request);
     }
 
     private String extractErrorMessageMethodArgumentNotValid(MethodArgumentNotValidException ex){
