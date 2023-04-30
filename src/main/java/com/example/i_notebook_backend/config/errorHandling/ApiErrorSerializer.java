@@ -1,4 +1,4 @@
-package com.example.i_notebook_backend.utils.errorHandling;
+package com.example.i_notebook_backend.config.errorHandling;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

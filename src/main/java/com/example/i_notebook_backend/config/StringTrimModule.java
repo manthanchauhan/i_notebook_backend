@@ -1,4 +1,4 @@
-package com.example.i_notebook_backend.utils;
+package com.example.i_notebook_backend.config;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

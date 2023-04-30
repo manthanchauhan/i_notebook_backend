@@ -1,4 +1,4 @@
-package com.example.i_notebook_backend.utils.errorHandling;
+package com.example.i_notebook_backend.config.errorHandling;
 
 import lombok.Getter;
 import lombok.Setter;
