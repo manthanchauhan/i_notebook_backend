@@ -4,6 +4,9 @@ import com.example.i_notebook_backend.user.dtos.request.CreateUserRequestDto;
 import com.example.i_notebook_backend.user.models.User;
 import com.example.i_notebook_backend.user.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     // https://stackoverflow.com/a/39892204
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -23,7 +26,7 @@ public class UserService {
     }
 
     @Transactional
-    public void createUser(CreateUserRequestDto requestDto){
+    public User createUser(CreateUserRequestDto requestDto){
         String encodedPassword = this.passwordEncoder.encode(requestDto.getPassword());
 
         User user = new User(
@@ -33,11 +36,18 @@ public class UserService {
                 encodedPassword
         );
         userRepository.save(user);
+        return user;
     }
 
     @Transactional(readOnly = true)
     public User getUserByEmail(String email){
         Optional<User> optionalUser = userRepository.findOne(UserRepository.hasEmail(email));
         return optionalUser.orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return this.getUserByEmail(username);
     }
 }
