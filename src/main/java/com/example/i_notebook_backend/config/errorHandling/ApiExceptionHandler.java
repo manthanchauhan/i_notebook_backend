@@ -1,5 +1,6 @@
 package com.example.i_notebook_backend.config.errorHandling;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -18,6 +19,9 @@ import java.util.List;
 @ControllerAdvice
 // https://www.baeldung.com/global-error-handler-in-a-spring-rest-api
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+    @Value("${is_debug}")
+    private Boolean isDebug;
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
@@ -63,6 +67,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Object> handleAllUncaughtException(RuntimeException exception, WebRequest request){
+        if (isDebug){
+            throw exception;
+        }
+
         ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         return handleExceptionInternal(exception, apiError, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
