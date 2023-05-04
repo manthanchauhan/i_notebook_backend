@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -51,6 +52,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError((HttpStatus) ex.getStatusCode(), ex.getReason());
 
         return handleExceptionInternal(ex, apiError, new HttpHeaders(), ex.getStatusCode(), request);
+    }
+
+    @ExceptionHandler(value = { BadCredentialsException.class})
+    protected ResponseEntity<Object> handleResponseStatusException(BadCredentialsException ex, WebRequest request) {
+        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, ex.getMessage());
+        return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
     }
 
     private String extractErrorMessageMethodArgumentNotValid(MethodArgumentNotValidException ex){

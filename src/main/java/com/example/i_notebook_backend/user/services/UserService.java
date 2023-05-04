@@ -48,6 +48,12 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.getUserByEmail(username);
+        User user = this.getUserByEmail(username);
+
+        if (user == null){
+            throw new UsernameNotFoundException("Invalid email");
+        }
+
+        return user;
     }
 }
