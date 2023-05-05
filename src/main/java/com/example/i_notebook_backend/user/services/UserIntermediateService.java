@@ -3,8 +3,10 @@ package com.example.i_notebook_backend.user.services;
 import com.example.i_notebook_backend.auth.services.AuthService;
 import com.example.i_notebook_backend.user.dtos.request.CreateUserRequestDto;
 import com.example.i_notebook_backend.user.dtos.response.CreateUserResponseDto;
+import com.example.i_notebook_backend.user.dtos.response.UserProfileResponseDto;
 import com.example.i_notebook_backend.user.models.User;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,5 +31,10 @@ public class UserIntermediateService {
 
         String authToken = this.authService.generateAuthToken(user);
         return new CreateUserResponseDto(authToken);
+    }
+
+    public UserProfileResponseDto getProfile(){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return UserProfileResponseDto.fromUser(user);
     }
 }

@@ -17,6 +17,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtTokenUtil implements Serializable {
     // https://www.javainuse.com/spring/boot-jwt
+    // https://www.toptal.com/spring/spring-security-tutorial
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
     @Value("${jwt.secret}")
