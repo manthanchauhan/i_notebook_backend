@@ -34,7 +34,11 @@ public class UserIntermediateService {
     }
 
     public UserProfileResponseDto getProfile(){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getRequestUser();
         return UserProfileResponseDto.fromUser(user);
+    }
+
+    public static User getRequestUser(){
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

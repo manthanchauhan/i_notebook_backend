@@ -27,4 +27,7 @@ public class Note extends AbstractBaseModel implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "user_id")
+    private Long userId;
 }
