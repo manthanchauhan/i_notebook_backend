@@ -1,5 +1,6 @@
-package com.example.i_notebook_backend.auth.utils;
+package com.example.i_notebook_backend.config.jwtAuth;
 
+import com.example.i_notebook_backend.config.utils.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;

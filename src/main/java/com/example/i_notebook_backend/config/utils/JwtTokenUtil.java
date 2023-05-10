@@ -1,4 +1,4 @@
-package com.example.i_notebook_backend.auth.utils;
+package com.example.i_notebook_backend.config.utils;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,6 +1,6 @@
 package com.example.i_notebook_backend.config;
 
-import com.example.i_notebook_backend.auth.utils.JwtAuthenticationFilter;
+import com.example.i_notebook_backend.config.jwtAuth.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

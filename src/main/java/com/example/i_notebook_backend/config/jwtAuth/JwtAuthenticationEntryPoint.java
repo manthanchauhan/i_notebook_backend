@@ -1,4 +1,4 @@
-package com.example.i_notebook_backend.auth.utils;
+package com.example.i_notebook_backend.config.jwtAuth;
 
 import com.example.i_notebook_backend.config.errorHandling.ApiError;
 import com.fasterxml.jackson.databind.ObjectMapper;
