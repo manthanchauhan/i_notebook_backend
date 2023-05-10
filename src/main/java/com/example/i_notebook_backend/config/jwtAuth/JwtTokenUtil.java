@@ -1,4 +1,4 @@
-package com.example.i_notebook_backend.config.utils;
+package com.example.i_notebook_backend.config.jwtAuth;
 
 import java.io.Serializable;
 import java.util.Date;
