@@ -34,6 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authToken = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (authToken == null){
+            filterChain.doFilter(request, response);
             return;
         }
 
@@ -42,6 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             userName = jwtTokenUtil.getUsernameFromToken(authToken);
         } catch (IllegalArgumentException | ExpiredJwtException | MalformedJwtException e){
+            filterChain.doFilter(request, response);
             return;
         }
 
@@ -58,6 +60,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             } else {
+                filterChain.doFilter(request, response);
                 return;
             }
         }
