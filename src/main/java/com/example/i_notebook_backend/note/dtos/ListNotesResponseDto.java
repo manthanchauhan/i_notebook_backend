@@ -16,7 +16,7 @@ public class ListNotesResponseDto {
     private List<Note> noteList;
     private int count;
 
-    public static ListNotesResponseDto fromNotesList(List<Note> noteList){
+    public static ListNotesResponseDto fromNoteList(List<Note> noteList){
         return new ListNotesResponseDto(noteList, noteList.size());
     }
 }

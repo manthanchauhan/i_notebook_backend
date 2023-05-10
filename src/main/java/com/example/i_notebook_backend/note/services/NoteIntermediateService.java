@@ -20,6 +20,6 @@ public class NoteIntermediateService {
         User user = UserIntermediateService.getRequestUser();
         List<Note> noteList = noteService.getAllNotes(user.getId());
 
-        return ListNotesResponseDto.fromNotesList(noteList);
+        return ListNotesResponseDto.fromNoteList(noteList);
     }
 }
