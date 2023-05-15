@@ -21,4 +21,12 @@ public class NoteService {
     public void createNote(Note note){
         noteRepository.save(note);
     }
+
+    public Note getNoteById(Long noteId){
+        return noteRepository.findById(noteId).orElse(null);
+    }
+
+    public void updateNote(Note note){
+        noteRepository.save(note);
+    }
 }

@@ -5,7 +5,9 @@ import com.example.i_notebook_backend.note.dtos.ListNotesResponseDto;
 import com.example.i_notebook_backend.note.models.Note;
 import com.example.i_notebook_backend.user.models.User;
 import com.example.i_notebook_backend.user.services.UserIntermediateService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -29,5 +31,23 @@ public class NoteIntermediateService {
 
         Note note = new Note(requestDto.getTitle(), requestDto.getDescription(), user.getId());
         noteService.createNote(note);
+    }
+
+    public void updateNote(Long noteId, CreateNoteRequestDto requestDto){
+        Note note = noteService.getNoteById(noteId);
+
+        if (note == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
+        }
+
+        User requestUser = UserIntermediateService.getRequestUser();
+
+        if (!requestUser.getId().equals(note.getUserId())){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
+        }
+
+        note.setTitle(requestDto.getTitle());
+        note.setDescription(requestDto.getDescription());
+        noteService.updateNote(note);
     }
 }

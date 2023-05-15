@@ -8,6 +8,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,13 @@ public class NotesController {
     @PostMapping("")
     public ResponseEntity<Map<String, String>> createNote(@RequestBody @Valid CreateNoteRequestDto requestBody){
         noteIntermediateService.createNote(requestBody);
+        return new ResponseEntity<>(RequestResponseConst.successResponseMap, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{note_id}")
+    public ResponseEntity<Map<String, String>> updateNote(@RequestBody @Valid CreateNoteRequestDto requestDto,
+                                                          @PathVariable Long note_id) {
+        noteIntermediateService.updateNote(note_id, requestDto);
         return new ResponseEntity<>(RequestResponseConst.successResponseMap, HttpStatus.OK);
     }
 }
