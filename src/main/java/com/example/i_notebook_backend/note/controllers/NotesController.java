@@ -7,6 +7,7 @@ import com.example.i_notebook_backend.note.services.NoteIntermediateService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,10 +39,16 @@ public class NotesController {
         return new ResponseEntity<>(RequestResponseConst.successResponseMap, HttpStatus.OK);
     }
 
-    @PatchMapping("/{note_id}")
+    @PatchMapping("/{noteId}")
     public ResponseEntity<Map<String, String>> updateNote(@RequestBody @Valid CreateNoteRequestDto requestDto,
-                                                          @PathVariable Long note_id) {
-        noteIntermediateService.updateNote(note_id, requestDto);
+                                                          @PathVariable Long noteId) {
+        noteIntermediateService.updateNote(noteId, requestDto);
+        return new ResponseEntity<>(RequestResponseConst.successResponseMap, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{noteId}")
+    public ResponseEntity<Map<String, String>> deleteNote(@PathVariable Long noteId){
+        noteIntermediateService.deleteNote(noteId);
         return new ResponseEntity<>(RequestResponseConst.successResponseMap, HttpStatus.OK);
     }
 }

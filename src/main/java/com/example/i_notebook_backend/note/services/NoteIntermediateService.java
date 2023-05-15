@@ -50,4 +50,8 @@ public class NoteIntermediateService {
         note.setDescription(requestDto.getDescription());
         noteService.updateNote(note);
     }
+
+    public void deleteNote(Long noteId){
+        noteService.deleteNote(noteId);
+    }
 }
