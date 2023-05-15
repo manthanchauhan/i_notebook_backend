@@ -1,5 +1,6 @@
 package com.example.i_notebook_backend.note.services;
 
+import com.example.i_notebook_backend.note.dtos.CreateNoteRequestDto;
 import com.example.i_notebook_backend.note.dtos.ListNotesResponseDto;
 import com.example.i_notebook_backend.note.models.Note;
 import com.example.i_notebook_backend.user.models.User;
@@ -21,5 +22,12 @@ public class NoteIntermediateService {
         List<Note> noteList = noteService.getAllNotes(user.getId());
 
         return ListNotesResponseDto.fromNoteList(noteList);
+    }
+
+    public void createNote(CreateNoteRequestDto requestDto){
+        User user = UserIntermediateService.getRequestUser();
+
+        Note note = new Note(requestDto.getTitle(), requestDto.getDescription(), user.getId());
+        noteService.createNote(note);
     }
 }

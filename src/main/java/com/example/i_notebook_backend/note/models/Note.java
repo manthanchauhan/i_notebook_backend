@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.io.Serializable;
 @Table(name = "note")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Note extends AbstractBaseModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +32,10 @@ public class Note extends AbstractBaseModel implements Serializable {
 
     @Column(name = "user_id")
     private Long userId;
+
+    public Note(String title, String description, Long userId) {
+        this.title = title;
+        this.description = description;
+        this.userId = userId;
+    }
 }

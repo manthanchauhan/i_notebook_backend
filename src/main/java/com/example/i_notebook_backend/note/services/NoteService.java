@@ -14,7 +14,11 @@ public class NoteService {
         this.noteRepository = noteRepository;
     }
 
-    List<Note> getAllNotes(Long userId){
+    public List<Note> getAllNotes(Long userId){
         return noteRepository.findAll(NoteRepository.hasUserId(userId));
+    }
+
+    public void createNote(Note note){
+        noteRepository.save(note);
     }
 }
