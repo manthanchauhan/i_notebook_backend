@@ -3,6 +3,7 @@ package com.example.i_notebook_backend.note.controllers;
 import com.example.i_notebook_backend.config.constants.RequestResponseConst;
 import com.example.i_notebook_backend.note.dtos.CreateNoteRequestDto;
 import com.example.i_notebook_backend.note.dtos.ListNotesResponseDto;
+import com.example.i_notebook_backend.note.models.Note;
 import com.example.i_notebook_backend.note.services.NoteIntermediateService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -34,9 +35,9 @@ public class NotesController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Map<String, String>> createNote(@RequestBody @Valid CreateNoteRequestDto requestBody){
-        noteIntermediateService.createNote(requestBody);
-        return new ResponseEntity<>(RequestResponseConst.successResponseMap, HttpStatus.OK);
+    public ResponseEntity<Note> createNote(@RequestBody @Valid CreateNoteRequestDto requestBody){
+        Note note = noteIntermediateService.createNote(requestBody);
+        return new ResponseEntity<>(note, HttpStatus.OK);
     }
 
     @PatchMapping("/{noteId}")

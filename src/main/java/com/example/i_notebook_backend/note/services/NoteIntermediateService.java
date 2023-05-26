@@ -26,11 +26,12 @@ public class NoteIntermediateService {
         return ListNotesResponseDto.fromNoteList(noteList);
     }
 
-    public void createNote(CreateNoteRequestDto requestDto){
+    public Note createNote(CreateNoteRequestDto requestDto){
         User user = UserIntermediateService.getRequestUser();
 
         Note note = new Note(requestDto.getTitle(), requestDto.getDescription(), user.getId());
         noteService.createNote(note);
+        return note;
     }
 
     public void updateNote(Long noteId, CreateNoteRequestDto requestDto){
